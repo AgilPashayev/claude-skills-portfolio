@@ -275,6 +275,12 @@ footer a {
   .top {
     align-items: flex-start;
     flex-direction: column;
+    position: static;
+    padding: 14px 6vw;
+  }
+
+  nav {
+    width: 100%;
   }
 
   .stats,
@@ -285,5 +291,9 @@ footer a {
 
   main {
     padding: 0 6vw 64px;
+  }
+
+  .hero {
+    padding-top: 36px;
   }
 }
