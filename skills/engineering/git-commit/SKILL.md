@@ -1,6 +1,6 @@
 ---
 name: git-commit
-description: Draft a conventional commit message from the current git diff. Use when the user asks to commit, write a commit message, or summarize staged changes.
+description: Draft a conventional commit message from the current git diff. Use when asked to commit, write a commit message, or summarize staged changes.
 ---
 
 # Git commit
@@ -15,7 +15,7 @@ description: Draft a conventional commit message from the current git diff. Use 
 
    Allowed types: `feat`, `fix`, `docs`, `refactor`, `test`, `chore`.
 4. Add a body only when the why is not obvious from the subject.
-5. Do not commit unless the user explicitly asked to commit.
+5. Do not commit unless explicitly asked to commit.
 6. Never amend a commit that has already been pushed.
 
 ## Examples

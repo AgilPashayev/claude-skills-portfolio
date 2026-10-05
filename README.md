@@ -1,80 +1,57 @@
-# Agent Skills portfolio
+# QA playbooks
 
-Interview-ready examples of **Claude / Cursor Agent Skills**: reusable `SKILL.md` playbooks that load only when a task matches.
+Personal testing and engineering playbooks I keep next to the work. Each folder is a small, reusable procedure (`SKILL.md`) with optional notes and scripts.
 
-**Live site:** [agilpashayev.github.io/claude-skills-portfolio](https://agilpashayev.github.io/claude-skills-portfolio)
+Maintained by [Agil Pashayev](https://github.com/AgilPashayev).
 
-Built by [Agil Pashayev](https://github.com/AgilPashayev) to walk through in hiring conversations: what skills are, how progressive disclosure works, and how I would write them on a team.
+**Site:** [agilpashayev.github.io/claude-skills-portfolio](https://agilpashayev.github.io/claude-skills-portfolio)
 
-## Why this exists
+## Layout
 
-Hiring loops often ask how you would give an agent durable, cheap context. Skills are the answer I use:
+```text
+skills/
+  qa/                 testing & CI triage
+  engineering/        day-to-day engineering helpers
+docs/
+  notes.md            short talking points for walkthroughs
+```
 
-- **Not a prompt** — they persist across chats.
-- **Not MCP** — they are procedures, not tool connections.
-- **Not a subagent** — they specialize the current agent instead of spawning another one.
+## QA
 
-Each example in `skills/` is small enough to read on a screen share.
-
-## Skills in this repo
-
-| Skill | What it shows |
+| Playbook | Purpose |
 | --- | --- |
-| [`git-commit`](skills/git-commit/SKILL.md) | Short skill, strong description, conventional-commit template |
-| [`pr-review`](skills/pr-review/SKILL.md) | Progressive disclosure (`STANDARDS.md`, `examples.md`) |
-| [`skill-audit`](skills/skill-audit/SKILL.md) | Quality bar I would apply to other people's skills |
-| [`release-notes`](skills/release-notes/SKILL.md) | Script the agent runs so source code stays out of context |
+| [`fail-check-analyzer`](skills/qa/fail-check-analyzer/SKILL.md) | Root-cause a hard CI/test failure |
+| [`flaky-test-analyzer`](skills/qa/flaky-test-analyzer/SKILL.md) | Diagnose intermittent tests |
 
-Interview talking points live in [`INTERVIEW.md`](INTERVIEW.md).
+Both stop after the report. **A person reviews before any fix, quarantine, or CI change.**
 
-## Install (Cursor or Claude Code)
+## Engineering
 
-Copy a skill folder into one of these locations:
+| Playbook | Purpose |
+| --- | --- |
+| [`git-commit`](skills/engineering/git-commit/SKILL.md) | Conventional commit message from the current diff |
+| [`pr-review`](skills/engineering/pr-review/SKILL.md) | Structured review checklist + standards |
+| [`release-notes`](skills/engineering/release-notes/SKILL.md) | User-facing notes from git history |
+| [`skill-audit`](skills/engineering/skill-audit/SKILL.md) | Lint a playbook for clarity and size |
 
-```text
-.cursor/skills/<name>/SKILL.md     this project
-.claude/skills/<name>/SKILL.md     this project (Claude Code + Cursor)
-~/.cursor/skills/<name>/SKILL.md   all local projects
-~/.claude/skills/<name>/SKILL.md   all local projects
-```
+## How I use them
 
-Then either:
-
-- Ask the agent to do the matching task, or
-- Type `/git-commit`, `/pr-review`, `/skill-audit`, or `/release-notes` in Agent chat.
-
-## Anatomy of a skill
+Copy a folder into the project (or your user skills directory), then run the matching workflow when the situation comes up:
 
 ```text
-pr-review/
-  SKILL.md        name + description + steps (always the entry)
-  STANDARDS.md    loaded only when SKILL.md says to read it
-  examples.md     loaded only if the review tone is unclear
+skills/qa/fail-check-analyzer  →  .cursor/skills/fail-check-analyzer
+# or
+skills/qa/fail-check-analyzer  →  .claude/skills/fail-check-analyzer
 ```
 
-Frontmatter that actually matters:
+## Conventions
 
-```yaml
----
-name: git-commit
-description: Draft a conventional commit message from the current git diff. Use when the user asks to commit, write a commit message, or summarize staged changes.
----
-```
-
-The description is the trigger. If it is vague, the skill never loads.
-
-## Design rules I follow
-
-1. Description includes **what** and **when**, in third person.
-2. Keep `SKILL.md` under 500 lines; park detail in linked files.
-3. Fragile, repetitive work goes in scripts. The agent runs them and reads stdout.
-4. Use POSIX paths in instructions (`scripts/collect_commits.py`).
-5. No secrets in skill files.
-
-## Site
-
-The GitHub Pages site is static HTML in this repository (`index.html`). Enable **Pages** on the `main` branch, folder `/ (root)`.
+1. Every playbook starts with a clear `description` (what + when).
+2. Keep the main file short; put detail in linked files.
+3. Scripts are meant to be run; output matters, not pasting the source.
+4. No secrets in these folders.
+5. Analysis playbooks require human review before action.
 
 ## License
 
-MIT. Skills are examples, not production runbooks for a specific company.
+MIT.

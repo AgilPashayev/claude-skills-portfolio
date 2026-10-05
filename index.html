@@ -3,15 +3,15 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Agent Skills Portfolio — Agil Pashayev</title>
+    <title>QA playbooks — Agil Pashayev</title>
     <meta
       name="description"
-      content="Interview portfolio of Claude and Cursor Agent Skills: progressive disclosure, sample SKILL.md files, and talking points."
+      content="QA and engineering playbooks for CI failure triage, flaky tests, reviews, and release notes."
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Source+Sans+3:wght@400;600&family=Source+Code+Pro:wght@450;500&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -21,12 +21,12 @@
     <header class="top">
       <div class="brand">
         <span class="mark" aria-hidden="true"></span>
-        <span>Skills Playbook</span>
+        <span>QA playbooks</span>
       </div>
       <nav>
-        <a href="#skills">Skills</a>
-        <a href="#how">How they load</a>
-        <a href="#interview">Interview</a>
+        <a href="#qa">QA</a>
+        <a href="#engineering">Engineering</a>
+        <a href="#layout">Layout</a>
         <a
           class="btn ghost"
           href="https://github.com/AgilPashayev/claude-skills-portfolio"
@@ -37,175 +37,144 @@
 
     <main id="main">
       <section class="hero">
-        <p class="eyebrow">Interview portfolio · 2026</p>
-        <h1>Agent Skills, written like production playbooks.</h1>
+        <p class="eyebrow">Agil Pashayev · QA</p>
+        <h1>Playbooks for failures, flakes, and release gates.</h1>
         <p class="lede">
-          Folders of instructions, references, and scripts that Claude or Cursor
-          loads only when the task matches. Built by
-          <strong>Agil Pashayev</strong> to screen-share in interviews — not a
-          tutorial dump.
+          Small, versioned checklists I use when CI goes red or a test starts
+          flickering. Analysis drafts the report; a person always reviews before
+          anything ships or gets quarantined.
         </p>
         <div class="actions">
-          <a class="btn solid" href="#skills">See the four skills</a>
-          <a class="btn ghost" href="interview.html">Open talking points</a>
+          <a class="btn solid" href="#qa">QA playbooks</a>
+          <a
+            class="btn ghost"
+            href="https://github.com/AgilPashayev/claude-skills-portfolio"
+            >Browse the repo</a
+          >
         </div>
         <dl class="stats">
           <div>
+            <dt>Focus</dt>
+            <dd>CI triage &amp; test stability</dd>
+          </div>
+          <div>
+            <dt>Rule</dt>
+            <dd>Human review before action</dd>
+          </div>
+          <div>
             <dt>Format</dt>
-            <dd>SKILL.md + optional files</dd>
-          </div>
-          <div>
-            <dt>Cost model</dt>
-            <dd>Metadata first, body on demand</dd>
-          </div>
-          <div>
-            <dt>Works in</dt>
-            <dd>Claude Code, Cursor, Claude API</dd>
+            <dd>Folder + SKILL.md</dd>
           </div>
         </dl>
       </section>
 
-      <section id="what">
-        <h2>What a skill is</h2>
+      <section id="qa">
+        <h2>QA</h2>
         <p>
-          A skill is a directory, not a chat snippet. The required file is
-          <code>SKILL.md</code>: YAML frontmatter (<code>name</code>,
-          <code>description</code>) plus the procedure. Extra markdown and
-          scripts stay on disk until the instructions point at them.
+          Two playbooks cover most of my day: a check that fails every time, and
+          a test that fails only sometimes.
         </p>
-        <div class="compare">
-          <article>
-            <h3>Skill</h3>
-            <p>Repeatable how-to. Loads when the description matches.</p>
-          </article>
-          <article>
-            <h3>Rule / prompt</h3>
-            <p>Short standing preference, or instructions for this thread only.</p>
-          </article>
-          <article>
-            <h3>MCP</h3>
-            <p>Tools and data connections. Complements skills; does not replace them.</p>
-          </article>
-          <article>
-            <h3>Subagent</h3>
-            <p>A separate agent for a delegated job, not a playbook on disk.</p>
-          </article>
-        </div>
-      </section>
-
-      <section id="how">
-        <h2>Progressive disclosure</h2>
-        <ol class="steps">
-          <li>
-            <strong>Startup.</strong> Only names and descriptions sit in context.
-            You can keep many skills installed.
-          </li>
-          <li>
-            <strong>Match.</strong> The user task hits trigger words in the
-            description. The agent reads <code>SKILL.md</code>.
-          </li>
-          <li>
-            <strong>Deepen.</strong> Linked files open if needed. Scripts are
-            <em>executed</em>; their stdout returns, not the source.
-          </li>
-        </ol>
-        <pre class="snippet" tabindex="0"><code>---
-name: git-commit
-description: Draft a conventional commit message from the current git diff.
-  Use when the user asks to commit, write a commit message, or summarize staged changes.
----</code></pre>
-        <p class="note">
-          Weak descriptions never fire. “Helps with git” is not a trigger.
-          “Commit message from the current diff” is.
-        </p>
-      </section>
-
-      <section id="skills">
-        <h2>Four skills you can open on a call</h2>
         <div class="grid">
           <article class="card">
-            <p class="kicker">Template</p>
-            <h3>git-commit</h3>
+            <p class="kicker">Hard fail</p>
+            <h3>fail-check-analyzer</h3>
             <p>
-              One file. Conventional commits. Will not commit unless asked. Good
-              first example because there is nothing extra to explain.
+              Classify product vs test vs environment. Quote the first real
+              error. Propose the next confirmation step — then stop for review.
             </p>
-            <a href="https://github.com/AgilPashayev/claude-skills-portfolio/blob/main/skills/git-commit/SKILL.md"
-              >SKILL.md</a
+            <a
+              href="https://github.com/AgilPashayev/claude-skills-portfolio/blob/main/skills/qa/fail-check-analyzer/SKILL.md"
+              >Open playbook</a
             >
           </article>
           <article class="card">
-            <p class="kicker">Disclosure</p>
-            <h3>pr-review</h3>
+            <p class="kicker">Intermittent</p>
+            <h3>flaky-test-analyzer</h3>
             <p>
-              Checklist in the entry file. Team standards and example comments
-              live next door so they do not tax every review equally.
+              Rank race, data, and order issues. No longer blind sleeps as the
+              “fix”. Quarantine only after a person agrees.
             </p>
-            <a href="https://github.com/AgilPashayev/claude-skills-portfolio/blob/main/skills/pr-review/SKILL.md"
-              >SKILL.md</a
-            >
-          </article>
-          <article class="card">
-            <p class="kicker">Quality bar</p>
-            <h3>skill-audit</h3>
-            <p>
-              Rubric for other skills: description triggers, length, POSIX paths,
-              no secrets. Shows I review skills like product surface.
-            </p>
-            <a href="https://github.com/AgilPashayev/claude-skills-portfolio/blob/main/skills/skill-audit/SKILL.md"
-              >SKILL.md</a
-            >
-          </article>
-          <article class="card">
-            <p class="kicker">Scripts</p>
-            <h3>release-notes</h3>
-            <p>
-              Python collector prints commit subjects. The model groups them into
-              user-facing notes instead of inventing the git history.
-            </p>
-            <a href="https://github.com/AgilPashayev/claude-skills-portfolio/blob/main/skills/release-notes/SKILL.md"
-              >SKILL.md</a
+            <a
+              href="https://github.com/AgilPashayev/claude-skills-portfolio/blob/main/skills/qa/flaky-test-analyzer/SKILL.md"
+              >Open playbook</a
             >
           </article>
         </div>
       </section>
 
-      <section id="install">
-        <h2>Install in an interview demo</h2>
-        <pre class="snippet" tabindex="0"><code>cp -R skills/git-commit .cursor/skills/git-commit
-# or
-cp -R skills/git-commit ~/.claude/skills/git-commit</code></pre>
-        <p>
-          Then type <code>/git-commit</code> in Agent chat, or ask the agent to
-          write a commit message. Cursor also loads
-          <code>.claude/skills/</code> for compatibility.
+      <section id="engineering">
+        <h2>Engineering helpers</h2>
+        <div class="grid">
+          <article class="card">
+            <p class="kicker">Commits</p>
+            <h3>git-commit</h3>
+            <p>Conventional commit message from the current diff. No commit unless asked.</p>
+            <a
+              href="https://github.com/AgilPashayev/claude-skills-portfolio/blob/main/skills/engineering/git-commit/SKILL.md"
+              >Open playbook</a
+            >
+          </article>
+          <article class="card">
+            <p class="kicker">Review</p>
+            <h3>pr-review</h3>
+            <p>Checklist up front; longer standards stay in a linked file until needed.</p>
+            <a
+              href="https://github.com/AgilPashayev/claude-skills-portfolio/blob/main/skills/engineering/pr-review/SKILL.md"
+              >Open playbook</a
+            >
+          </article>
+          <article class="card">
+            <p class="kicker">Release</p>
+            <h3>release-notes</h3>
+            <p>Turn git history into short user-facing notes with a small helper script.</p>
+            <a
+              href="https://github.com/AgilPashayev/claude-skills-portfolio/blob/main/skills/engineering/release-notes/SKILL.md"
+              >Open playbook</a
+            >
+          </article>
+          <article class="card">
+            <p class="kicker">Hygiene</p>
+            <h3>skill-audit</h3>
+            <p>Check a playbook for vague descriptions, length, and missing paths.</p>
+            <a
+              href="https://github.com/AgilPashayev/claude-skills-portfolio/blob/main/skills/engineering/skill-audit/SKILL.md"
+              >Open playbook</a
+            >
+          </article>
+        </div>
+      </section>
+
+      <section id="layout">
+        <h2>Repo layout</h2>
+        <pre class="snippet" tabindex="0"><code>skills/
+  qa/
+    fail-check-analyzer/
+    flaky-test-analyzer/
+  engineering/
+    git-commit/
+    pr-review/
+    release-notes/
+    skill-audit/
+docs/
+  notes.md</code></pre>
+        <p class="note">
+          One repo, two areas. QA first — that is the main story. Engineering
+          helpers share the same folder pattern so they stay easy to review.
         </p>
       </section>
 
-      <section id="interview">
-        <h2>How I would talk through it</h2>
+      <section id="review">
+        <h2>Human review is required</h2>
         <ul class="talk">
-          <li>
-            Start with cost: unused skills cost almost nothing because only
-            metadata is hot.
-          </li>
-          <li>
-            Show <code>pr-review</code> as the disclosure pattern, then
-            <code>release-notes</code> as the script pattern.
-          </li>
-          <li>
-            If they have an internal runbook, offer to turn one page of it into a
-            skill on the whiteboard.
-          </li>
-          <li>
-            Name failure modes: vague descriptions, bloated files, secrets in
-            markdown, Windows paths in shared skills.
-          </li>
+          <li>Playbooks draft analysis. They do not mute checks or quarantine tests on their own.</li>
+          <li>Every QA report ends with an explicit “awaiting human review” block.</li>
+          <li>Action happens only after a person accepts the verdict.</li>
         </ul>
         <p>
-          Full cue cards:
-          <a href="https://github.com/AgilPashayev/claude-skills-portfolio/blob/main/INTERVIEW.md"
-            >INTERVIEW.md</a
+          Walkthrough reminders:
+          <a
+            href="https://github.com/AgilPashayev/claude-skills-portfolio/blob/main/docs/notes.md"
+            >docs/notes.md</a
           >.
         </p>
       </section>
@@ -215,7 +184,7 @@ cp -R skills/git-commit ~/.claude/skills/git-commit</code></pre>
       <p>
         Agil Pashayev ·
         <a href="https://github.com/AgilPashayev">GitHub</a>
-        · MIT licensed examples, not a vendor product
+        · MIT
       </p>
     </footer>
   </body>

@@ -1,6 +1,6 @@
 ---
 name: pr-review
-description: Review a pull request or local diff for correctness, security, and maintainability. Use when the user asks for a code review, PR review, or feedback on a branch.
+description: Review a pull request or local diff for correctness, security, and maintainability. Use when asked for a code review, PR review, or feedback on a branch.
 ---
 
 # PR review
@@ -9,10 +9,11 @@ Read [STANDARDS.md](STANDARDS.md) before commenting. Read [examples.md](examples
 
 ## Steps
 
-1. Identify the change set (`git diff main...HEAD` or the files the user named).
+1. Identify the change set (`git diff main...HEAD` or the named files).
 2. Walk the checklist below. Skip items that do not apply.
 3. Group findings by severity. Do not pad the review with style nits if there are correctness bugs.
 4. End with a merge recommendation: **approve**, **request changes**, or **comment**.
+5. A human reviewer owns the final decision.
 
 ## Checklist
 

@@ -1,6 +1,6 @@
 # Review standards
 
-Loaded only when the PR review skill runs. Keep this file for team-specific rules so `SKILL.md` stays short.
+Loaded only when running the PR review playbook. Keep team-specific rules here so `SKILL.md` stays short.
 
 ## Security
 

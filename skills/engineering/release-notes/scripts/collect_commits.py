@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Print commit subjects between two git refs. Run this; do not paste it into context."""
+"""Print commit subjects between two git refs."""
 
 from __future__ import annotations
 
